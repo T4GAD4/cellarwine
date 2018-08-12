@@ -1,0 +1,42 @@
+<ion-menu type="overlay" [content]="content">
+  <ion-header>
+    <ion-card *ngIf="isLoggedIn">
+      <ion-item>
+          <img src="./assets/imgs/logo.png">
+      </ion-item>
+      <ion-card-content>
+        <p>capi.aurelien@gmail.com</p>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!isLoggedIn">
+        <button ion-button icon-right (click)="login()">
+          Login with
+          <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+    </ion-card>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon *ngIf="p.icon" name="{{p.icon}}"></ion-icon>
+        <img *ngIf="p.imgIcon" src="./assets/icon/{{p.imgIcon}}.svg">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<ion-fab right bottom>
+  <button ion-fab color="secondary">
+    <ion-icon name="add"></ion-icon>
+  </button>
+  <ion-fab-list side="top">
+    <button ion-fab (click)="openBarcodeScanner()"><ion-icon name="search"></ion-icon></button>
+    <button ion-fab><ion-icon name="barcode"></ion-icon></button>
+  </ion-fab-list>
+</ion-fab>
